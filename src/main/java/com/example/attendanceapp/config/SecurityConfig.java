@@ -52,8 +52,11 @@ public class SecurityConfig {
                                 "/api/users/verify-otp",
                                 "/api/users/reset-password",
                                 "/api/users/*",
+                                "/api/queries",
+                                "/api/queries/**",
                                 "/test/ping"
                         ).permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .headers(headers -> headers.frameOptions(frame -> frame.disable()))
