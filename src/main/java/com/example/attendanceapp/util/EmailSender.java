@@ -11,8 +11,9 @@ import java.util.*;
 public class EmailSender {
 
     // ✅ Fallback to hardcoded key if Railway env var is missing
-    @Value("${BREVO_API_KEY:BVrD9yWz7PNFjb3M}")
+    @Value("${BREVO_API_KEY}")
     private String apiKey;
+
 
     private final String BREVO_URL = "https://api.brevo.com/v3/smtp/email";
 
@@ -43,7 +44,10 @@ public class EmailSender {
         RestTemplate restTemplate = new RestTemplate();
 
         Map<String, Object> payload = new HashMap<>();
-        payload.put("sender", Map.of("name", "KL QUERIES", "email", "98cc70001@smtp-brevo.com"));
+        payload.put("sender", Map.of(
+                "name", "KL QUERIES",
+                "email", "kluqueries@gmail.com" // ✅ Verified sender email
+        ));
         payload.put("to", List.of(Map.of("email", to)));
         payload.put("subject", subject);
         payload.put("htmlContent", htmlBody);
