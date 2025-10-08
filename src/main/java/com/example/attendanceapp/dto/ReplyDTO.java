@@ -1,20 +1,24 @@
 package com.example.attendanceapp.dto;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.time.OffsetDateTime;
 
 public class ReplyDTO {
     private Long id;
     private Long userId;
     private String userName;
     private String text;
-    private LocalDateTime timestamp;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime timestamp;
+
     private int likes;
     private int dislikes;
     private String userVote; // optional: "like", "dislike", or null
 
     public ReplyDTO() {}
 
-    public ReplyDTO(Long id, Long userId, String userName, String text, LocalDateTime timestamp) {
+    public ReplyDTO(Long id, Long userId, String userName, String text, OffsetDateTime timestamp) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
@@ -22,7 +26,7 @@ public class ReplyDTO {
         this.timestamp = timestamp;
     }
 
-    public ReplyDTO(Long id, Long userId, String userName, String text, LocalDateTime timestamp, int likes, int dislikes) {
+    public ReplyDTO(Long id, Long userId, String userName, String text, OffsetDateTime timestamp, int likes, int dislikes) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
@@ -44,8 +48,8 @@ public class ReplyDTO {
     public String getText() { return text; }
     public void setText(String text) { this.text = text; }
 
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
+    public OffsetDateTime getTimestamp() { return timestamp; }
+    public void setTimestamp(OffsetDateTime timestamp) { this.timestamp = timestamp; }
 
     public int getLikes() { return likes; }
     public void setLikes(int likes) { this.likes = likes; }

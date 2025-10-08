@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,7 +80,7 @@ public class QueryServiceImpl implements QueryService {
         List<String> bannedWords = List.of(
                 "madda", "sulli", "lavada", "lanja", "sulliga", "gudha", "gudhamuyy", "maddaguduv",
                 "fuck", "fuckoff", "fuckyou", "fuck off", "bastardd", "loveyou", "stupid",
-                "killyou", "kill", "lanjodaka"
+                "killyou", "kill", "lanjodaka" ,"kojja" , "munda" , "sulla" , "niammandenga" , "dengutha" ,"puku" , "godhalanjodaka"
         );
         String lowerText = text.toLowerCase();
         boolean containsAbuse = bannedWords.stream().anyMatch(lowerText::contains);
@@ -90,7 +92,7 @@ public class QueryServiceImpl implements QueryService {
         Query q = new Query();
         q.setUser(user);
         q.setText(text);
-        q.setTimestamp(LocalDateTime.now());
+        q.setTimestamp(OffsetDateTime.now(ZoneOffset.ofHoursMinutes(5, 30)));
 
         Query saved = queryRepository.save(q);
         return toDto(saved);
@@ -133,7 +135,7 @@ public class QueryServiceImpl implements QueryService {
         r.setQuery(q);
         r.setUser(user);
         r.setText(text);
-        r.setTimestamp(LocalDateTime.now());
+        r.setTimestamp(OffsetDateTime.now(ZoneOffset.ofHoursMinutes(5, 30)));
 
         Reply saved = replyRepository.save(r);
         q.getReplies().add(saved);

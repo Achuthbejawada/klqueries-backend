@@ -1,8 +1,10 @@
 package com.example.attendanceapp.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.List;
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class QueryDTO {
@@ -10,13 +12,14 @@ public class QueryDTO {
     private Long userId;
     private String userName;
     private String text;
-    private LocalDateTime timestamp;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssXXX")
+    private OffsetDateTime timestamp;
     private List<ReplyDTO> replies;
     private int reportCount; // ✅ NEW
 
     public QueryDTO() {}
 
-    public QueryDTO(Long id, Long userId, String userName, String text, LocalDateTime timestamp) {
+    public QueryDTO(Long id, Long userId, String userName, String text, OffsetDateTime timestamp) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
@@ -36,8 +39,8 @@ public class QueryDTO {
     public String getText() { return text; }
     public void setText(String text) { this.text = text; }
 
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
+    public OffsetDateTime getTimestamp() { return timestamp; }
+    public void setTimestamp(OffsetDateTime timestamp) { this.timestamp = timestamp; }
 
     public List<ReplyDTO> getReplies() { return replies; }
     public void setReplies(List<ReplyDTO> replies) { this.replies = replies; }

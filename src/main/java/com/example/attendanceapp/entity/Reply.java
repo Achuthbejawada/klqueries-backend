@@ -2,6 +2,7 @@ package com.example.attendanceapp.entity;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Reply {
     private String text;
 
     @Column(nullable = false)
-    private LocalDateTime timestamp;
+    private OffsetDateTime timestamp;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -48,8 +49,8 @@ public class Reply {
     public String getText() { return text; }
     public void setText(String text) { this.text = text; }
 
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
+    public OffsetDateTime getTimestamp() { return timestamp; }
+    public void setTimestamp(OffsetDateTime timestamp) { this.timestamp = timestamp; }
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }

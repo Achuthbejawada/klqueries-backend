@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneOffset;
 import java.util.Optional;
 
 @Service
@@ -93,7 +95,7 @@ public class ReplyServiceImpl implements ReplyService {
         r.setQuery(parent.getQuery());
         r.setUser(user);
         r.setText(text);
-        r.setTimestamp(LocalDateTime.now());
+        r.setTimestamp(OffsetDateTime.now(ZoneOffset.ofHoursMinutes(5, 30)));
 
         Reply saved = replyRepository.save(r);
         int likes = voteRepo.countByReplyIdAndType(saved.getId(), "like");
