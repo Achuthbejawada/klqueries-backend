@@ -15,7 +15,7 @@ public class CorsConfig {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOriginPatterns("http://127.0.0.1:5500") // ✅ use pattern-based
+                        .allowedOriginPatterns("http://127.0.0.1:5500", "https://klqueries.netlify.app")// ✅ use pattern-based
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
                         .allowedHeaders("*")
                         .allowCredentials(true); // ✅ now safe with origin patterns

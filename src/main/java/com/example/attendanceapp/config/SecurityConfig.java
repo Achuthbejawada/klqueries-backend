@@ -33,7 +33,10 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     CorsConfiguration config = new CorsConfiguration();
-                    config.setAllowedOriginPatterns(List.of("http://127.0.0.1:5500"));
+                    config.setAllowedOriginPatterns(List.of(
+                            "http://127.0.0.1:5500",
+                            "https://klqueries.netlify.app"
+                    ));
                     config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     config.setAllowedHeaders(List.of("*"));
                     config.setAllowCredentials(true);
