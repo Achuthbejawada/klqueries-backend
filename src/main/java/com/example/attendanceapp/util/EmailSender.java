@@ -10,7 +10,8 @@ import java.util.*;
 @Component
 public class EmailSender {
 
-    @Value("${BREVO_API_KEY}")
+    // ✅ Fallback to hardcoded key if Railway env var is missing
+    @Value("${BREVO_API_KEY:BVrD9yWz7PNFjb3M}")
     private String apiKey;
 
     private final String BREVO_URL = "https://api.brevo.com/v3/smtp/email";
@@ -19,10 +20,11 @@ public class EmailSender {
     public void sendOtpEmail(String to, String otp) {
         String subject = "🔐 Your KL QUERIES OTP";
         String htmlBody = "<p>Hello 👋,</p>" +
-                "<p>Your OTP is:</p>" +
+                "<p>Your One-Time Password (OTP) is:</p>" +
                 "<h2 style='color:#007BFF'>" + otp + "</h2>" +
-                "<p>Valid for 5 minutes. Do not share it.</p>" +
-                "<br><p>Regards,<br><strong>KL QUERIES Team</strong></p>";
+                "<p>This OTP is valid for <strong>5 minutes</strong>.</p>" +
+                "<p>Please do not share it with anyone.</p>" +
+                "<br><p>Warm regards,<br><strong>KL QUERIES Team</strong></p>";
         sendEmail(to, subject, htmlBody);
     }
 
@@ -31,7 +33,7 @@ public class EmailSender {
         String subject = "📢 Your KL Query Has Been Answered";
         String htmlBody = "<p>Hello 👋,</p>" +
                 "<p>Your query titled <strong>\"" + queryTitle + "\"</strong> has received a response.</p>" +
-                "<p>Visit <a href='https://klqueries.netlify.app'>KL QUERIES</a> to view it.</p>" +
+                "<p>Visit <a href='https://klqueries.netlify.app'>KL QUERIES</a> to view the reply.</p>" +
                 "<br><p>Best wishes,<br><strong>KL QUERIES Team</strong></p>";
         sendEmail(to, subject, htmlBody);
     }
@@ -53,8 +55,10 @@ public class EmailSender {
         HttpEntity<Map<String, Object>> request = new HttpEntity<>(payload, headers);
 
         try {
+            System.out.println("🔑 Using Brevo API Key: " + apiKey); // Debug print
             ResponseEntity<String> response = restTemplate.postForEntity(BREVO_URL, request, String.class);
             System.out.println("📧 Brevo API response: " + response.getStatusCode());
+            System.out.println("📨 Brevo response body: " + response.getBody());
         } catch (Exception e) {
             System.out.println("❌ Failed to send email via Brevo API: " + e.getMessage());
         }
