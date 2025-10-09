@@ -54,7 +54,8 @@ public class SecurityConfig {
                                 "/api/users/*",
                                 "/api/queries",
                                 "/api/queries/**",
-                                "/test/ping"
+                                "/test/ping",
+                                "/oauth2/**"
                         ).permitAll()
 
                         .anyRequest().authenticated()
