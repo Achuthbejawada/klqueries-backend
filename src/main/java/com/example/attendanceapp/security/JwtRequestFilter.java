@@ -41,7 +41,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 path.startsWith("/api/users/verify-otp") ||
                 path.startsWith("/api/users/reset-password") ||
                 path.startsWith("/h2-console") ||
-                path.startsWith("/test/ping")) {
+                path.startsWith("/test/ping") ||
+                  path.startsWith("/oauth2/")){
             System.out.println("🔓 Public endpoint, skipping auth");
             filterChain.doFilter(request, response);
             return;
